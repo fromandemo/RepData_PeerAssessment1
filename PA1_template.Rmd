@@ -6,6 +6,9 @@ output:
     keep_md: true
 ---
 
+```{r global_options, include=FALSE, warning=FALSE}
+```
+
 ## Introduction
 
 It is now possible to collect a large amount of data about personal movement using activity monitoring devices such as a Fitbit, Nike Fuelband, or Jawbone Up. These type of devices are part of the “quantified self” movement – a group of enthusiasts who take measurements about themselves regularly to improve their health, to find patterns in their behavior, or because they are tech geeks. But these data remain under-utilized both because the raw data are hard to obtain and there is a lack of statistical methods and software for processing and interpreting the data.
@@ -32,9 +35,12 @@ The dataset is stored in a comma-separated-value (CSV) file and there are a tota
 
 
 ```{r}
+setwd("~/Documents/Projects/datasciencecoursera/RepData_PeerAssessment1")
+
 if(!file.exists("activity.csv")) {
   unzip("activity.zip")
 }
+
 activity<-read.csv("activity.csv", header = TRUE, sep = ",", )
 ```
 
@@ -45,6 +51,34 @@ head(activity,10)
 ```
 
 ### What is mean total number of steps taken per day?
+```{r}
+daily_total_activity <- aggregate(activity["steps"],by=activity["date"],sum, na.rm=TRUE)
+
+library(ggplot2)
+
+p1<- ggplot(daily_total_activity, aes(steps)) + geom_histogram(breaks = c(0, 5000, 10000, 15000, 20000, 25000)) 
+p2<-p1 + labs(y = expression("frequency")) + labs(x = expression("number of steps per day")) + labs(title = expression("Fig 1"))
+
+print(p2)
+```
+
+```{r}
+mean(daily_total_activity$steps)
+median(daily_total_activity$steps)
+```
+
 ### What is the average daily activity pattern?
+```{r}
+avg_per_interval <- aggregate(activity["steps"],by=activity["interval"],mean, na.rm=TRUE)
+
+p1 <- ggplot(avg_per_interval, aes(interval, steps)) + geom_line() 
+p2<- p1 + labs(title = expression("Fig 2"))
+print(p2)
+```
+
+```{r}
+avg_per_interval[avg_per_interval["steps"]==max(avg_per_interval["steps"]),]
+```
+
 ### Imputing missing values
 ### Are there differences in activity patterns between weekdays and weekends?
