@@ -1,7 +1,6 @@
 # Reproducible Research: Peer Assessment 1
 Federico Roman Demo  
 
-
 ## Introduction
 
 It is now possible to collect a large amount of data about personal movement using activity monitoring devices such as a Fitbit, Nike Fuelband, or Jawbone Up. These type of devices are part of the “quantified self” movement – a group of enthusiasts who take measurements about themselves regularly to improve their health, to find patterns in their behavior, or because they are tech geeks. But these data remain under-utilized both because the raw data are hard to obtain and there is a lack of statistical methods and software for processing and interpreting the data.
@@ -78,10 +77,7 @@ library(ggplot2)
 ```
 
 ```r
-p1<- ggplot(daily_total_activity, aes(steps)) + geom_histogram(breaks = c(0,2500, 5000, 7500, 10000, 12500, 15000, 17500, 20000,22500, 25000)) 
-p2<-p1 + labs(y = expression("Frequency")) + labs(x = expression("Number of steps per day")) + labs(title = expression("Total Number of steps per day (excluding missing values)"))
-
-print(p2)
+ggplot(daily_total_activity, aes(steps)) + geom_histogram(breaks = c(0,2500, 5000, 7500, 10000, 12500, 15000, 17500, 20000,22500, 25000)) + labs(y = expression("Frequency")) + labs(x = expression("Number of steps per day")) + labs(title = expression("Total Number of steps per day (excluding missing values)"))
 ```
 
 ![](PA1_template_files/figure-html/unnamed-chunk-4-1.png) 
@@ -101,9 +97,7 @@ In order to understand the daily activity pattern, we make a time series plot of
 ```r
 avg_per_interval <- aggregate(activity["steps"],by=activity["interval"],mean, na.rm=TRUE)
 
-p1 <- ggplot(avg_per_interval, aes(interval, steps)) + geom_line() 
-p2<- p1 + labs(title = expression("Average number of steps by time interval (excluding missing values)"))
-print(p2)
+ggplot(avg_per_interval, aes(interval, steps)) + geom_line() + labs(title = expression("Average number of steps by time interval (excluding missing values)"))
 ```
 
 ![](PA1_template_files/figure-html/unnamed-chunk-6-1.png) 
@@ -182,9 +176,11 @@ We make a histogram of the total number of steps taken each day and calculate an
 ```r
 daily_total_activity <- aggregate(new_activity["steps"],by=new_activity["date"], sum)
 
-p1<- ggplot(daily_total_activity, aes(steps)) + geom_histogram(breaks = c(0,2500, 5000, 7500, 10000, 12500, 15000, 17500, 20000,22500, 25000)) 
-p2<-p1 + labs(y = expression("Frequency")) + labs(x = expression("Number of steps per day")) + labs(title = expression("Total Number of steps per day (after filling in missing values)"))
+ggplot(daily_total_activity, aes(steps)) + geom_histogram(breaks = c(0,2500, 5000, 7500, 10000, 12500, 15000, 17500, 20000,22500, 25000)) + labs(y = expression("Frequency")) + labs(x = expression("Number of steps per day")) + labs(title = expression("Total Number of steps per day (after filling in missing values)"))
 ```
+
+![](PA1_template_files/figure-html/unnamed-chunk-11-1.png) 
+
 The distribution doesn’t seem to have changed with the values filled in.
 
 What are the mean and median in the new dataset?

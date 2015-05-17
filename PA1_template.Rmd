@@ -60,10 +60,7 @@ We make a histogram of the total number of steps taken each day.
 ```{r}
 library(ggplot2)
 
-p1<- ggplot(daily_total_activity, aes(steps)) + geom_histogram(breaks = c(0,2500, 5000, 7500, 10000, 12500, 15000, 17500, 20000,22500, 25000)) 
-p2<-p1 + labs(y = expression("Frequency")) + labs(x = expression("Number of steps per day")) + labs(title = expression("Total Number of steps per day (excluding missing values)"))
-
-print(p2)
+ggplot(daily_total_activity, aes(steps)) + geom_histogram(breaks = c(0,2500, 5000, 7500, 10000, 12500, 15000, 17500, 20000,22500, 25000)) + labs(y = expression("Frequency")) + labs(x = expression("Number of steps per day")) + labs(title = expression("Total Number of steps per day (excluding missing values)"))
 ```
 
 We calculate and report the mean and median of the total number of steps taken per day.
@@ -79,9 +76,7 @@ In order to understand the daily activity pattern, we make a time series plot of
 ```{r}
 avg_per_interval <- aggregate(activity["steps"],by=activity["interval"],mean, na.rm=TRUE)
 
-p1 <- ggplot(avg_per_interval, aes(interval, steps)) + geom_line() 
-p2<- p1 + labs(title = expression("Average number of steps by time interval (excluding missing values)"))
-print(p2)
+ggplot(avg_per_interval, aes(interval, steps)) + geom_line() + labs(title = expression("Average number of steps by time interval (excluding missing values)"))
 ```
 
 Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
@@ -125,9 +120,9 @@ We make a histogram of the total number of steps taken each day and calculate an
 ```{r}
 daily_total_activity <- aggregate(new_activity["steps"],by=new_activity["date"], sum)
 
-p1<- ggplot(daily_total_activity, aes(steps)) + geom_histogram(breaks = c(0,2500, 5000, 7500, 10000, 12500, 15000, 17500, 20000,22500, 25000)) 
-p2<-p1 + labs(y = expression("Frequency")) + labs(x = expression("Number of steps per day")) + labs(title = expression("Total Number of steps per day (after filling in missing values)"))
+ggplot(daily_total_activity, aes(steps)) + geom_histogram(breaks = c(0,2500, 5000, 7500, 10000, 12500, 15000, 17500, 20000,22500, 25000)) + labs(y = expression("Frequency")) + labs(x = expression("Number of steps per day")) + labs(title = expression("Total Number of steps per day (after filling in missing values)"))
 ```
+
 The distribution doesn’t seem to have changed with the values filled in.
 
 What are the mean and median in the new dataset?
@@ -173,7 +168,6 @@ summary <- aggregate(new_activity$steps, list(interval = new_activity$interval, 
 names(summary) <- c("interval", "day", "steps")
 
 ggplot(summary, aes(interval, steps)) + geom_line() + facet_wrap(~day, ncol = 1) + labs(title = expression("Weekdays vs. Weekends activity"))
-
 ```
 
 Even though the average maximum number of steps in any one interval occurs during the week, there is an overall higher number steps taken in the aggregate over the weekend.
