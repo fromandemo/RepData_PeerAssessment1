@@ -210,9 +210,7 @@ paste(round(100*delta_median, 4), "%")
 ```
 ## [1] "-0.011 %"
 ```
-The variation of the mean and the median after imputing the missing values are respectively 1.2074838\times 10^{-7} and -1.1042267\times 10^{-4}. 
-
-The difference between the original dataset and new one without missing values is very small.
+The difference between the original dataset and the new one without missing values is very small.
 
 ### Are there differences in activity patterns between weekdays and weekends?
 
@@ -257,4 +255,4 @@ ggplot(summary, aes(interval, steps)) + geom_line() + facet_wrap(~day, ncol = 1)
 
 ![](PA1_template_files/figure-html/unnamed-chunk-15-1.png) 
 
-Even though the average maximum number of steps in any one interval occurs during the week, there is an overall higher number steps taken in the aggregate over the weekend.
+Even though the average maximum number of steps in any one interval occurs during the week, there is an overall higher number steps taken in the aggregate over the weekend.-
